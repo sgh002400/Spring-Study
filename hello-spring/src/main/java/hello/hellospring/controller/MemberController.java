@@ -26,7 +26,7 @@ public class MemberController {
     }
 
     @PostMapping("/members/new")
-    public String create(MemberForm form) { //Request 객체를 사용해서 안받아도 되는 이유???
+    public String create(MemberForm form) { //Request 객체를 사용해서 안받아도 되는 이유??? -> 커맨드 객체에 대해 알아보자!
         Member member = new Member();
         member.setName(form.getName());
 
