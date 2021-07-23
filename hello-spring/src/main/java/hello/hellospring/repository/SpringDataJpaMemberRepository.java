@@ -12,5 +12,4 @@ public interface SpringDataJpaMemberRepository extends JpaRepository<Member, Lon
     //JPQL이 메서드 이름을 보고 select m from Member m where m.name = ? 라는 query를 생성한다.
     //findByNameAndId 이런식으로 작성하면 또 이름을 보고 쿼리 자동 생성함.
     Optional<Member> findByName(String name);
-
 }
