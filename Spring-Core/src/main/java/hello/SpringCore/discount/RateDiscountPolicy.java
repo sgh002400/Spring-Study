@@ -3,7 +3,8 @@ package hello.SpringCore.discount;
 import hello.SpringCore.member.Grade;
 import hello.SpringCore.member.Member;
 
-public class RateDiscountPolicy implements DiscountPolicy{
+public class
+RateDiscountPolicy implements DiscountPolicy{
 
     private int discountPercent = 10;
 

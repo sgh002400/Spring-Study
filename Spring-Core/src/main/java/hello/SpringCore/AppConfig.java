@@ -1,7 +1,6 @@
 package hello.SpringCore;
 
 import hello.SpringCore.discount.DiscountPolicy;
-import hello.SpringCore.discount.FixedDiscountPolicy;
 import hello.SpringCore.discount.RateDiscountPolicy;
 import hello.SpringCore.member.MemberRepository;
 import hello.SpringCore.member.MemberService;
@@ -9,25 +8,28 @@ import hello.SpringCore.member.MemberServiceImpl;
 import hello.SpringCore.member.MemoryMemberRepository;
 import hello.SpringCore.order.OrderService;
 import hello.SpringCore.order.OrderServiceImpl;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-//어떤 구현 객체을 주입할지는 결정하는 클래스
+@Configuration
 public class AppConfig {
 
-    //AppConfig을 이런식으로 작성하면 interface와 구현에 대한 것을 한 눈에 알 수 있으며 중복이 줄어든다.
-
+    @Bean //Bean을 붙이면 key-value 형식으로 Spring Container에 등록이 된다. 이렇게 스프링 컨테이너에 등록된 객체를 스프링 빈이라고함
     public MemberService memberService() {
-        //MemberServiceImpl에서 직접 구현체를 넣어주는게 아니라 여기서 인자로 넣어줘서 생성자를 통해 주입해줌. (생성자 주입)
         return new MemberServiceImpl(memberRepository());
     }
 
-    private MemberRepository memberRepository() {
+    @Bean
+    public MemberRepository memberRepository() {
         return new MemoryMemberRepository();
     }
 
+    @Bean
     public OrderService orderService() {
         return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 
+    @Bean
     public DiscountPolicy discountPolicy() {
         return new RateDiscountPolicy();
     }
