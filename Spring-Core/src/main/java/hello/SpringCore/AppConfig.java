@@ -11,7 +11,7 @@ import hello.SpringCore.order.OrderServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+@Configuration //이걸 빼고 실행하면 CGLIB가 사용되지 않는다. 그리고 싱글톤 패턴이 깨지게 된다! -> 설정 정보는 항상 Configuration을 사용하자!
 public class AppConfig {
 
     //memberService가 호출되면 memberRepository가 호출되면서 MemoryMemberRepository 객체가 하나 생성되고,
