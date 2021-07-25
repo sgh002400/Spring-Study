@@ -50,7 +50,6 @@ public class SingletonTest {
     @DisplayName("스프링 컨테이너와 싱글톤")
     void springContainer() {
         //SingletonService에서 보이듯 싱글톤 패턴을 구현하는 코드 자체가 많이 들어간다는 단점이 있는데
-
         //스프링 컨테이너는 싱글턴 패턴을 적용하지 않아도 객체 인스턴스를 싱글톤으로 관리한다.
 
         ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
