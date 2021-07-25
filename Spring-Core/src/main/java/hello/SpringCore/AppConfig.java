@@ -14,10 +14,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
 
-    @Bean //Bean을 붙이면 key-value 형식으로 Spring Container에 등록이 된다. 이렇게 스프링 컨테이너에 등록된 객체를 스프링 빈이라고함
+    @Bean //.getInstance() 해서 싱글톤 패턴 적용하지 않아도 Spring Container를 사용하면 기본적으로 객체를 싱글톤으로 만들어서 관리해줌
     public MemberService memberService() {
         return new MemberServiceImpl(memberRepository());
     }
+
 
     @Bean
     public MemberRepository memberRepository() {
