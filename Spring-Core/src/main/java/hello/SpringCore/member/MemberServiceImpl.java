@@ -16,5 +16,10 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public Member findMember(Long memberId) {
         return memberRepository.findById(memberId);
-    } //구현체가 하나만 있을 때는 관례상 인터페이스명 뒤에 Impl을 많이 붙임
+    }
+
+    //테스트 용도
+    public MemberRepository getMemberRepository() {
+        return memberRepository;
+    }
 }

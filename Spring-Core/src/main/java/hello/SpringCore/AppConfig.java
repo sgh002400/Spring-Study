@@ -14,19 +14,28 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
 
-    @Bean //.getInstance() 해서 싱글톤 패턴 적용하지 않아도 Spring Container를 사용하면 기본적으로 객체를 싱글톤으로 만들어서 관리해줌
+    //memberService가 호출되면 memberRepository가 호출되면서 MemoryMemberRepository 객체가 하나 생성되고,
+    //orderService가 호출되면 마찬가지로 MemoryMemberRepository 객체가 또 생성되는 것처럼 보인다.
+    //그럼 싱글톤 패턴이 깨지는게 아닐까?? -> Test 해보자! -> 테스트 결과는 모두 같은 인스턴스가 공유되어 사용된다.
+
+    @Bean
     public MemberService memberService() {
+
+        System.out.println("Call AppConfig.memberService");
         return new MemberServiceImpl(memberRepository());
     }
 
-
     @Bean
     public MemberRepository memberRepository() {
+
+        System.out.println("Call AppConfig.memberRepository");
         return new MemoryMemberRepository();
     }
 
     @Bean
     public OrderService orderService() {
+
+        System.out.println("Call AppConfig.orderService");
         return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 
@@ -34,5 +43,4 @@ public class AppConfig {
     public DiscountPolicy discountPolicy() {
         return new RateDiscountPolicy();
     }
-
 }
