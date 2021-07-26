@@ -1,21 +1,25 @@
 package hello.SpringCore.order;
 
+import hello.SpringCore.annotation.MainDiscountPolicy;
 import hello.SpringCore.discount.DiscountPolicy;
-import hello.SpringCore.discount.FixedDiscountPolicy;
-import hello.SpringCore.discount.RateDiscountPolicy;
 import hello.SpringCore.member.Member;
 import hello.SpringCore.member.MemberRepository;
-import hello.SpringCore.member.MemoryMemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor //lombok이 필수값(final이 붙은거)들의 생성자를 만들어줌.
 public class OrderServiceImpl implements OrderService {
 
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
+
+    @Autowired
+    public OrderServiceImpl(MemberRepository memberRepository, @MainDiscountPolicy DiscountPolicy discountPolicy) { //설명하기 위해 lombok 일단 해제
+        //FixedDiscountPolicy에 @Component를 붙이면 NoUniqueBeanDefinitionException 에러가 난다.
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
