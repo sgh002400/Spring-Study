@@ -1,8 +1,9 @@
 package hello.SpringCore.lifecycle;
 
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
-public class NetworkClient {
+public class NetworkClient implements InitializingBean, DisposableBean {
     private String url;
     public NetworkClient() {
         System.out.println("생성자 호출, url = " + url);
@@ -21,17 +22,19 @@ public class NetworkClient {
     }
     //서비스 종료시 호출
     public void disconnect() {
+        System.out.println("NetworkClient.disconnect");
         System.out.println("close: " + url);
     }
 
-    /*
-    생성자 호출, url = null
-    connect: null
-    call: null message = 초기화 연결 메시지
+    @Override
+    public void destroy() throws Exception {
+        System.out.println("NetworkClient.destroy");
+        disconnect();
+    }
 
-    생성자 부분을 보면 url 정보 없이 connect가 호출되는 것을 확인할 수 있다.
-    객체를 생성하는 단계에는 url이 없고, 객체를 생성한 다음에 외부에서 수정자 주
-    입을 통해서 setUrl() 이 호출되어야 url이 존재하게 된다.
-     */
-
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        connect();
+        call("초기화 연결 메시지");
+    }
 }
