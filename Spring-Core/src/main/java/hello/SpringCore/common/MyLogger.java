@@ -1,6 +1,7 @@
 package hello.SpringCore.common;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -8,8 +9,9 @@ import javax.annotation.PreDestroy;
 import java.util.UUID;
 
 @Component
-@Scope(value = "request") //이 빈은 HTTP 요청 당 하나씩 생성되고 HTTP 요청이 끝나는 시점에 소멸된다.
-
+@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
+//대상이 클래스면 TARGET_CLASS, 인터페이스면 INTERFACES를 선택해주면 된다.
+//이렇게 하면 스프링 컨테이너는 CGLIB 라는 바이트코드를 조작하는 라이브러리를 사용해서, MyLogger를 상속받은 가짜 프록시 객체를 생성한다.
 public class MyLogger {
 
     private String uuid;
